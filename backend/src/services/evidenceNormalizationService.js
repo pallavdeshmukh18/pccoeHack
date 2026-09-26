@@ -17,7 +17,7 @@ function clamp(value) {
 exports.normalizeEvidence = (evidence) => {
   const { sourceType, rawValue } = evidence;
   
-  if (!rawValue) {
+  if (rawValue == null) {
     return { normalizedValue: null, normalizationMethod: null };
   }
 

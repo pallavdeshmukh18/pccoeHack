@@ -68,7 +68,7 @@ async function runTests() {
 
       const role = new JobRole({
         _id: roleId,
-        title: 'Test Role',
+        title: `Test Role ${Math.random()}`,
         department: 'Test',
         description: 'Test Role',
         skillRequirements

@@ -128,3 +128,52 @@ Evaluate the answer and return strictly a JSON object matching this schema, with
     throw new Error('Failed to evaluate assessment answer from AI service.');
   }
 };
+
+exports.generateDevelopmentRecommendations = async (context) => {
+  const client = getGroqClient();
+
+  const prompt = `
+You are a development planning assistant.
+You will receive structured, authoritative capability and priority data.
+Do not alter numerical values. Do not invent employee facts. Do not rank or reorder priorities. 
+Only provide personalized development plans for the provided gaps.
+
+Context:
+${JSON.stringify(context, null, 2)}
+
+Return strictly a JSON object matching this schema, with no markdown formatting or extra text:
+{
+  "overallSummary": "A brief summary of the development plan.",
+  "developmentPlan": "A high-level paragraph describing the overarching focus.",
+  "recommendations": [
+    {
+      "skillName": "The exact name of the skill",
+      "developmentObjective": "Concrete objective tied to the gap",
+      "whyThisMatters": "Why this is important for the role",
+      "recommendedActions": ["action 1", "action 2"],
+      "practiceActivities": ["activity 1"],
+      "suggestedProjects": ["project 1"],
+      "successIndicators": ["indicator 1"],
+      "estimatedTimeframe": "1-2 weeks",
+      "cautions": ["caution 1"]
+    }
+  ]
+}
+  `.trim();
+
+  try {
+    const chatCompletion = await client.chat.completions.create({
+      messages: [{ role: 'user', content: prompt }],
+      model: process.env.GROQ_MODEL || 'allam-2-7b',
+      response_format: { type: 'json_object' }
+    });
+
+    const content = chatCompletion.choices[0]?.message?.content;
+    if (!content) throw new Error('Empty response from Groq');
+    
+    return JSON.parse(content);
+  } catch (error) {
+    console.error('Error generating Groq recommendations:', error.message);
+    throw new Error('Failed to generate development recommendations from AI service.');
+  }
+};

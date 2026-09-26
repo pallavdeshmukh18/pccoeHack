@@ -44,6 +44,11 @@ const employeeSchema = new mongoose.Schema({
     ref: 'Employee',
     default: null
   },
+  team: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+    default: null
+  },
   role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'JobRole',

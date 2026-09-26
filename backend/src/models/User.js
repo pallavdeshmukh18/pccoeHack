@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   passwordHash: {
     type: String,
-    required: [true, 'Password hash is required']
+    required: [true, 'Password hash is required'],
+    select: false
   },
   role: {
     type: String,
@@ -32,6 +33,12 @@ const userSchema = new mongoose.Schema({
     ref: 'Employee',
     default: null
   },
+  avatarUrl: {
+    type: String,
+    default: null,
+    trim: true
+  },
+
   isActive: {
     type: Boolean,
     default: true
