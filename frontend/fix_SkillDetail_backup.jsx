@@ -82,8 +82,7 @@ export default function SkillDetail() {
     if (!selectedOption) return;
     setAssessmentLoading(true);
     try {
-      const questionId = assessment.nextQuestion?.questionId || assessment.question?.questionId;
-      const res = await api.post(`/assessments/${assessment.assessmentId}/answer`, { questionId, answer: selectedOption });
+      const res = await api.post(`/assessments/${assessment._id}/answer`, { answer: selectedOption });
       setAssessment(res.data.data);
       setSelectedOption('');
       if (res.data.data.status === 'COMPLETED') {
@@ -286,21 +285,24 @@ export default function SkillDetail() {
             ) : (
               <div className="p-4">
                 <div className="flex justify-between items-center mb-6 text-sm text-[#77758A] font-bold uppercase tracking-wider">
-                  <span>Question {assessment.questionsAnswered ? assessment.questionsAnswered + 1 : 1}</span>
+                  <span>Question {assessment.questionsCount + 1}</span>
                   <span className="text-[#7568D8]">Difficulty: {(assessment.currentDifficulty * 100).toFixed(0)}%</span>
                 </div>
                 
                 <h3 className="text-lg font-bold text-[#17152F] mb-6">
-                  {assessment.question?.question || assessment.nextQuestion?.question || "Generating next question..."}
+                  {assessment.currentQuestion?.text || "Generating next question..."}
                 </h3>
                 
                 <div className="space-y-3 mb-6">
-                  <textarea
-                      value={selectedOption}
-                      onChange={(e) => setSelectedOption(e.target.value)}
-                      placeholder="Type your answer here..."
-                      className="w-full min-h-[120px] p-4 rounded-xl border border-[#E8E5F0] text-sm text-[#17152F] focus:outline-none focus:border-[#7568D8] resize-none"
-                    />
+                  {assessment.currentQuestion?.options?.map((opt, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedOption(opt)}
+                      className={`w-full text-left p-4 rounded-xl border text-sm font-medium transition-all ${selectedOption === opt ? 'bg-[#F2F1FA] border-[#7568D8] text-[#7568D8]' : 'bg-white border-[#E8E5F0] text-[#17152F] hover:border-[#A5A3B5]'}`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
                 </div>
 
                 <div className="flex justify-end gap-3 pt-4 border-t border-[#E8E5F0]">
