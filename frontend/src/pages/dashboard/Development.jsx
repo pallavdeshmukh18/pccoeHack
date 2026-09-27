@@ -354,11 +354,11 @@ export default function Development() {
                   <h3 className="text-xs font-bold uppercase tracking-wider text-[#77758A] mb-2 flex items-center gap-1">
                     <Target className="w-3.5 h-3.5" /> Objective
                   </h3>
-                  <p className="text-sm font-semibold text-[#17152F]">{copilotPlan.summary?.developmentObjective || '—'}</p>
-                  <p className="text-xs text-[#77758A] mt-2 leading-relaxed">{copilotPlan.summary?.whyThisMatters || '—'}</p>
+                  <p className="text-sm font-semibold text-[#17152F]">{copilotPlan.developmentPlan || '—'}</p>
+                  <p className="text-xs text-[#77758A] mt-2 leading-relaxed">{copilotPlan.overallSummary || '—'}</p>
                 </div>
                 
-                {copilotPlan.recommendations?.map((rec, i) => (
+                {copilotPlan.priorities?.map((rec, i) => (
                   <div key={i} className="bg-white p-4 rounded-xl border border-[#E8E5F0] shadow-sm">
                     <div className="flex justify-between items-start mb-3 pb-2 border-b border-[#E8E5F0]">
                         <div className="font-bold text-[#17152F] text-xs">Skill Focus: <span className="text-[#7568D8]">{rec.skill?.name || 'Skill'}</span></div>

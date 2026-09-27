@@ -45,7 +45,26 @@ Return strictly a JSON object matching this schema, with no markdown formatting 
     const content = chatCompletion.choices[0]?.message?.content;
     if (!content) throw new Error('Empty response from Groq');
     
-    return JSON.parse(content);
+    
+    const parsed = JSON.parse(content);
+    
+    // Ensure string arrays are actually arrays of strings
+    if (parsed.recommendations && Array.isArray(parsed.recommendations)) {
+        parsed.recommendations.forEach(rec => {
+            ['recommendedActions', 'practiceActivities', 'suggestedProjects', 'successIndicators', 'cautions'].forEach(key => {
+                if (Array.isArray(rec[key])) {
+                    rec[key] = rec[key].map(item => typeof item === 'string' ? item : (item.text || item.name || JSON.stringify(item)));
+                } else if (typeof rec[key] === 'string') {
+                    rec[key] = [rec[key]];
+                } else {
+                    rec[key] = [];
+                }
+            });
+        });
+    }
+
+    return parsed;
+
   } catch (error) {
     console.error('Error generating Groq question:', error.message);
     throw new Error('Failed to generate assessment question from AI service.');
@@ -180,7 +199,26 @@ Return strictly a JSON object matching this schema, with no markdown formatting 
     const content = chatCompletion.choices[0]?.message?.content;
     if (!content) throw new Error('Empty response from Groq');
     
-    return JSON.parse(content);
+    
+    const parsed = JSON.parse(content);
+    
+    // Ensure string arrays are actually arrays of strings
+    if (parsed.recommendations && Array.isArray(parsed.recommendations)) {
+        parsed.recommendations.forEach(rec => {
+            ['recommendedActions', 'practiceActivities', 'suggestedProjects', 'successIndicators', 'cautions'].forEach(key => {
+                if (Array.isArray(rec[key])) {
+                    rec[key] = rec[key].map(item => typeof item === 'string' ? item : (item.text || item.name || JSON.stringify(item)));
+                } else if (typeof rec[key] === 'string') {
+                    rec[key] = [rec[key]];
+                } else {
+                    rec[key] = [];
+                }
+            });
+        });
+    }
+
+    return parsed;
+
   } catch (error) {
     console.error('Error generating Groq recommendations:', error.message);
     throw new Error('Failed to generate development recommendations from AI service.');
