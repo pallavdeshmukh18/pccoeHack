@@ -119,11 +119,11 @@ const assessmentSessionSchema = new mongoose.Schema({
   },
   minQuestions: {
     type: Number,
-    default: 4
+    default: 3
   },
   maxQuestions: {
     type: Number,
-    default: 8
+    default: 3
   },
   startedAt: {
     type: Date,

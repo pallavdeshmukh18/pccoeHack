@@ -102,9 +102,18 @@ Evaluate the answer and return strictly a JSON object matching this schema, with
     const content = chatCompletion.choices[0]?.message?.content;
     if (!content) throw new Error('Empty response from Groq');
     
+    
     const parsed = JSON.parse(content);
     
+    // Ensure string arrays are actually arrays of strings
+    ['strengths', 'weaknesses', 'missingAreas'].forEach(key => {
+        if (Array.isArray(parsed[key])) {
+            parsed[key] = parsed[key].map(item => typeof item === 'string' ? item : (item.text || item.name || JSON.stringify(item)));
+        }
+    });
+
     // Validate output structure simply
+
     if (typeof parsed.score !== 'number' || typeof parsed.estimatedLevel !== 'number' ||
         typeof parsed.correctness !== 'number' || typeof parsed.reasoningQuality !== 'number' ||
         typeof parsed.depth !== 'number') {

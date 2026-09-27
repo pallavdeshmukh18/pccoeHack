@@ -287,7 +287,7 @@ export default function SkillDetail() {
               <div className="p-4">
                 <div className="flex justify-between items-center mb-6 text-sm text-[#77758A] font-bold uppercase tracking-wider">
                   <span>Question {assessment.questionsAnswered ? assessment.questionsAnswered + 1 : 1}</span>
-                  <span className="text-[#7568D8]">Difficulty: {(assessment.currentDifficulty * 100).toFixed(0)}%</span>
+                  <span className="text-[#7568D8]">Difficulty: {(((assessment.nextQuestion?.difficulty || assessment.question?.difficulty || 3) / 5) * 100).toFixed(0)}%</span>
                 </div>
                 
                 <h3 className="text-lg font-bold text-[#17152F] mb-6">
