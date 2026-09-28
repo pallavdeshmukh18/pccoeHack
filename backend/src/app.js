@@ -37,7 +37,10 @@ app.use(cors());
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
-    message: 'TalentTwin backend is running'
+    service: 'TalentTwin API',
+    message: 'TalentTwin backend is running',
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime())
   });
 });
 
