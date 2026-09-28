@@ -31,9 +31,14 @@ export default function Hero() {
         animate="show"
         className="relative z-10"
       >
+        <motion.div variants={item} className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-300 mb-6 backdrop-blur-sm">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          AI-powered talent intelligence
+        </motion.div>
+
         <motion.h1 variants={item} className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[1.1]">
           Understand talent.<br />
-          <span className="text-gray-400">Continuously.</span>
+          <span className="text-gray-400">Grow continuously.</span>
         </motion.h1>
         
         <motion.p variants={item} className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-12 leading-relaxed">

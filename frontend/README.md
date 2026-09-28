@@ -1,6 +1,6 @@
 # TalentTwin Frontend
 
-This is the React frontend for the Pccoe Hack project. It provides the employee experience and dashboards for skill insights, career development, assessment workflows, and AI-driven guidance.
+This is the React frontend for the Pccoe Hack project. It powers the employee experience with dashboards for skill insights, career development, assessment workflows, and AI-driven recommendations.
 
 ## Local development
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-The app will run in Vite and is typically available at the local development URL printed in the terminal.
+The application runs with Vite and is typically available at the local URL shown in the terminal.
 
 ## Useful commands
 
@@ -22,6 +22,6 @@ npm run preview
 
 ## Notes
 
-- The frontend is built with Vite + React.
-- API calls are expected to be connected to the backend service in this project.
-- Update this file as the UI evolves so the setup instructions stay current.
+- Built with Vite + React.
+- Connects to the backend API in this project for data and AI-driven features.
+- Keep this README updated as the frontend evolves.
